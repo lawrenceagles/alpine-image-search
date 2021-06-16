@@ -12,7 +12,11 @@
     <title>Image Search App</title>
   </head>
 
-  <body>
+  
+<body x-data="imageGallery()" 
+x-init="fetch('https://pixabay.com/api/?key=9158365-4702ac79e23be9aab580d1f9b&q=food&image_type=all&per_page=36')
+  .then(response => response.json())
+  .then(response => { images = response.hits })" class="bg-white">
     <!-- body starts-->
       <div class="main">
         <div class="container mx-auto px-4 sm:px-8 lg:px-16 xl:px-20">
@@ -32,6 +36,20 @@
     <script 
       src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" 
         defer>
+    </script>
+
+    <script>
+
+    function imageGallery() {
+      return {
+        images: [],
+        api_key: "9158365-4702ac790p3be9aab580d1f9b",
+        q: "",
+        image_type: "",
+        page: "",
+        per_page: 200, 
+    }
+    }
     </script>
   </body>
 </html>

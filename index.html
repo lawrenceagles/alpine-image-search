@@ -6,31 +6,33 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-  <title>Document</title>
+  <title>Image Search App</title>
 </head>
 
-<body x-data="imageGallery()" x-init="fetch('https://pixabay.com/api/?key=15819227-ef2d84d1681b9442aaa9755b8&q=food&image_type=all&per_page=52&')
+<!-- body starts-->
+
+<body x-data="imageGallery()" 
+    x-init="fetch('https://pixabay.com/api/?key=9158365-4702ac79e23be9aab580d1f9b&q=food&image_type=all&per_page=36')
       .then(response => response.json())
       .then(response => { images = response.hits })" class="bg-white">
 
   <div class="main">
     <div class="container mx-auto px-4 sm:px-8 lg:px-16 xl:px-20">
 
-      <!-- hero -->
-      <div class="hero">
+      <!-- hero starts-->
+      <section class="hero">
 
-        <!-- hero headline -->
+        <!-- hero headline starts -->
         <div class="hero-headline flex flex-col items-center justify-center pt-24 text-center">
-          <h1 class=" font-bold text-3xl text-gray-900">Alpine.js Images Searching App</h1>
-          <!-- <p class=" font-base text-base text-gray-600">high quality stock images and videos shared by our talented
-            community.</p> -->
+          <h1 class=" font-bold text-3xl text-gray-900">Alpine.js Image Finder</h1>
         </div>
+        <!-- hero headline ends -->
 
         <!-- image search box start -->
-        <div class="box pt-6">
-          <div class="box-wrapper">
+        <section class="search pt-8">
+          <div class="search-wrapper">
 
-            <div class=" bg-white rounded flex items-center w-full p-3 shadow-sm border border-gray-200">
+            <div class="search-container bg-white rounded flex items-center w-full p-3 shadow-sm border border-gray-200">
               <button @click="getImages()" class="outline-none focus:outline-none">
                 <svg class=" w-5 text-gray-600 h-5 cursor-pointer" fill="none" stroke-linecap="round"
                   stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24">
@@ -53,22 +55,27 @@
             </div>
 
           </div>
-        </div>
+        </section>
         <!-- image search box end -->
 
-        <section id="photos" class="my-5 grid grid-cols-1 md:grid-cols-4 gap-4">
+        <!-- Image grid strats-->
+        <section id="photos" class="my-5 grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           <template x-for="image in images" :key="image.id">
-            <a :href="image.largeImageURL" class="hover:opacity-75 " target="_new"><img class="w-full h-64 object-cover"
-                :src="image.largeImageURL" :alt="image.tags" /></a>
+            <a :href="image.largeImageURL" class="hover:opacity-75 " target="_new">
+              <img class="w-full h-64 object-cover" :src="image.largeImageURL" :alt="image.tags" />
+            </a>
           </template>
         </section>
+        <!-- Image grid ends-->
 
-      </div>
+      </section>
+      <!-- hero ends-->
 
+      <!-- Footer starts-->
       <footer class="p-5 text-sm text-gray-600 flex justify-center items-center">
 
         <span class="text-teal-600 font-semibold">With</span>
-        
+
         <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="heart"
           class="svg-inline--fa fa-heart fa-w-16 text-red-600 w-4 h-4 mx-2 align-middle" role="img"
           xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -76,9 +83,11 @@
             d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z">
           </path>
         </svg>
-        
+
         <span class="text-teal-600 font-semibold">From Dailydotdev </span>
       </footer>
+      <!-- Footer Ends -->
+
     </div>
   </div>
 
@@ -87,17 +96,15 @@
     function imageGallery() {
       return {
         images: [],
-        api_key: "15819227-ef2d84d1681b9442aaa9755b8",
+        api_key: "9158365-4702ac79e23be9aab580d1f9b",
         q: "",
         image_type: "",
         page: "",
         per_page: 200,
         getImages: async function () {
-          console.log("params", this.q, this.image_type);
           const response = await fetch(
-            `https://pixabay.com/api/?key=${this.api_key}&q=${
-                this.q
-              }&image_type=${this.image_type}&per_page=${this.per_page}&page=${this.page}`
+            `https://pixabay.com/api/?key=${this.api_key}&q=${this.q}&
+            image_type=${this.image_type}&per_page=${this.per_page}&page=${this.page}`
           );
           const data = await response.json();
           this.images = data.hits;
@@ -106,5 +113,6 @@
     }
   </script>
 </body>
+<!-- body ends -->
 
 </html>
